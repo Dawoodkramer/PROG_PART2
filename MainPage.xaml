@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PROG6221_PART2.MainPage"
+             BackgroundColor="#000000"> <Grid RowDefinitions="Auto, *, Auto" Padding="20">
+        
+        <Label Grid.Row="0" 
+               x:Name="AsciiLogoLabel"
+               TextColor="#3DD9B3" 
+               FontSize="10" 
+               FontFamily="Menlo" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center" 
+               Margin="0,0,0,20"/>
+
+        <ScrollView Grid.Row="1" x:Name="ChatScrollView">
+            <VerticalStackLayout x:Name="ChatContainer" Spacing="8" />
+        </ScrollView>
+
+        <Grid Grid.Row="2" ColumnDefinitions="*, Auto" ColumnSpacing="10" Margin="0,20,0,0">
+            <Entry Grid.Column="0" 
+                   x:Name="UserInputEntry" 
+                   Placeholder="Awaiting input..." 
+                   PlaceholderColor="DarkGray" 
+                   TextColor="#3DD9B3" 
+                   BackgroundColor="#0A0A0A" 
+                   FontFamily="Menlo"
+                   ReturnCommand="{Binding SendCommand}"/>
+            
+            <Button Grid.Column="1" 
+                    x:Name="SendBtn"
+                    Text="Send" 
+                    Clicked="OnSendClicked" 
+                    BackgroundColor="#3DD9B3" 
+                    TextColor="Black" 
+                    FontFamily="Menlo"
+                    FontAttributes="Bold"/>
+        </Grid>
+    </Grid>
+</ContentPage>

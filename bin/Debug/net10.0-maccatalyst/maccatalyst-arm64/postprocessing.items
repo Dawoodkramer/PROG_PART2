@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <_PostProcessingItem Include="PROG6221_PART2.app/Contents/MacOS/PROG6221_PART2">
+      <IsAppExtension>false</IsAppExtension>
+      <BCSymbolMapName>PROG6221_PART2.bcsymbolmap</BCSymbolMapName>
+      <NoDSymUtil>true</NoDSymUtil>
+      <dSYMSourcePathExists>false</dSYMSourcePathExists>
+      <NoSymbolStrip>true</NoSymbolStrip>
+      <dSYMInfoPlistRelativePath>PROG6221_PART2.app.dSYM\Contents\Info.plist</dSYMInfoPlistRelativePath>
+      <SymbolFile>/Users/user1/Desktop/PROG6221_PART2/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/mtouch-symbols.list</SymbolFile>
+      <DSymName>PROG6221_PART2.app.dSYM</DSymName>
+      <SourceProjectPath>/Users/user1/Desktop/PROG6221_PART2</SourceProjectPath>
+      <IsXPCService></IsXPCService>
+    </_PostProcessingItem>
+  </ItemGroup>
+</Project>

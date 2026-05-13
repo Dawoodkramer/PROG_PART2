@@ -1,0 +1,1 @@
+-v --force --timestamp=none --sign - --entitlements /Users/user1/Desktop/PROG6221_PART2/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/Entitlements.xcent /Users/user1/Desktop/PROG6221_PART2/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/PROG6221_PART2.app
