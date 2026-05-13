@@ -310,3 +310,4 @@
 /Users/user1/Desktop/PROG6221_PART2/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
 /Users/user1/Desktop/PROG6221_PART2/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/Microsoft.VisualStudio.DesignTools.TapContract.dll
 /Users/user1/Desktop/PROG6221_PART2/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
+/Users/user1/Desktop/PROG6221_PART2/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/PROG6221_PART2.sourcelink.json

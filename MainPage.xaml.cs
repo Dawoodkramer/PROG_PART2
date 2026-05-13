@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
-using Plugin.Maui.Audio; 
 
 namespace PROG6221_PART2;
 
 public partial class MainPage : ContentPage
 {
+    // OOP: Instantiating our dedicated objects
     private ChatBot _bot;
-    private IAudioPlayer _audioPlayer;
+    private AudioPlayer _audioManager;
     
     // State Machine Trackers
     private bool _isBooting = true;
@@ -20,13 +20,13 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
-        _bot = new ChatBot();
         
-        // Lock the input box while booting
+        _bot = new ChatBot();
+        _audioManager = new AudioPlayer();
+        
         UserInputEntry.IsEnabled = false;
         SendBtn.IsEnabled = false;
 
-        // Draw the ASCII Logo immediately
         AsciiLogoLabel.Text = 
             "   ______      __               ____        __ \n" +
             "  / ____/_  __/ /_  ___  ____  / __ )____  / /_\n" +
@@ -39,8 +39,6 @@ public partial class MainPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        
-        // Ensure the boot sequence only runs once per launch
         if (!_hasBooted)
         {
             _hasBooted = true;
@@ -50,25 +48,25 @@ public partial class MainPage : ContentPage
 
     private async Task RunBootSequenceAsync()
     {
-        // Give the UI a half-second to settle before the sequence starts
         await Task.Delay(500);
         
-        PlayWelcomeAudio();
+        // Use our new Audio object
+        _ = _audioManager.PlayGreetingAsync();
 
         try 
         {
-            // Simulate the Part 1 Boot Sequence
-            await TypeMessageAsync("System", "INITIALIZING SECURE CONNECTION...", Colors.DarkGreen, 40);
+            // Use our new UIHelper static methods
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", "INITIALIZING SECURE CONNECTION...", Colors.DarkGreen, 40);
             await Task.Delay(600);
-            await TypeMessageAsync("System", "ESTABLISHING ENCRYPTED TUNNEL...", Colors.DarkGreen, 40);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", "ESTABLISHING ENCRYPTED TUNNEL...", Colors.DarkGreen, 40);
             await Task.Delay(600);
-            await TypeMessageAsync("System", "AWARENESS PROTOCOL v2.0 ONLINE.", Colors.DarkGreen, 40);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", "AWARENESS PROTOCOL v2.0 ONLINE.", Colors.DarkGreen, 40);
             await Task.Delay(500);
             
-            AddDivider();
+            UIHelper.AddDivider(ChatContainer, ChatScrollView);
 
-            await TypeMessageAsync("Bot", "Hello! Welcome to the Cybersecurity Awareness Bot. I'm here to help you stay safe online.", Colors.Cyan, 20);
-            await TypeMessageAsync("Bot", "To configure your session profile, please enter your name:", Colors.Cyan, 20);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot", "Hello! Welcome to the Cybersecurity Awareness Bot.", Colors.Cyan, 20);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot", "To configure your session profile, please enter your name:", Colors.Cyan, 20);
         }
         catch (Exception ex)
         {
@@ -76,7 +74,6 @@ public partial class MainPage : ContentPage
         }
         finally 
         {
-            // FINALLY BLOCK: This guarantees the UI unlocks even if an animation frame drops
             _isBooting = false;
             UserInputEntry.IsEnabled = true;
             SendBtn.IsEnabled = true;
@@ -84,52 +81,31 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async void PlayWelcomeAudio()
-    {
-        try 
-        {
-            var audioStream = await FileSystem.OpenAppPackageFileAsync("voiceover-Dawood.wav");
-            _audioPlayer = AudioManager.Current.CreatePlayer(audioStream);
-            _audioPlayer.Play();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Audio failed to play: {ex.Message}");
-        }
-    }
-
     private async void OnSendClicked(object sender, EventArgs e)
     {
-        if (_isBooting) return; // Prevent clicking during boot
+        if (_isBooting) return; 
 
         string userInput = UserInputEntry.Text?.Trim() ?? string.Empty;
-
-        if (string.IsNullOrWhiteSpace(userInput))
-            return; 
+        if (string.IsNullOrWhiteSpace(userInput)) return; 
 
         UserInputEntry.Text = string.Empty;
 
         // STATE 1: Capturing the Name
         if (_needsName)
         {
-            AddMessageToScreen("User", userInput, Colors.LightGreen);
+            UIHelper.AddMessageToScreen(ChatContainer, ChatScrollView, "User", userInput, Colors.LightGreen);
             _userName = userInput;
-            _needsName = false; // Move to the next state
+            _needsName = false; 
             
-            // Disable while bot responds
             UserInputEntry.IsEnabled = false;
             SendBtn.IsEnabled = false;
 
-            await TypeMessageAsync("System", "Processing...", Colors.DarkGray, 20);
-            await TypeMessageAsync("System", $"Identity confirmed. Welcome to the secure terminal, {_userName}.", Colors.Cyan, 30);
-            await TypeMessageAsync("Bot", "How can I assist you with your cybersecurity needs today? (Topics: Passwords, Phishing, Safe Browsing)", Colors.Yellow, 30);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", "Processing...", Colors.DarkGray, 20);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", $"Identity confirmed. Welcome to the secure terminal, {_userName}.", Colors.Cyan, 30);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot", "How can I assist you today? (Topics: Passwords, Phishing, Safe Browsing)", Colors.Yellow, 30);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", "[System: Type 'exit' or 'quit' at any time to close the terminal.]", Colors.DarkGray, 20);
             
-            // ==========================================
-            // THE FIX: Added the missing system notification here!
-            // ==========================================
-            await TypeMessageAsync("System", "[System: Type 'exit' or 'quit' at any time to close the terminal.]", Colors.DarkGray, 20);
-            
-            AddDivider();
+            UIHelper.AddDivider(ChatContainer, ChatScrollView);
             
             UserInputEntry.IsEnabled = true;
             SendBtn.IsEnabled = true;
@@ -137,99 +113,35 @@ public partial class MainPage : ContentPage
             return;
         }
 
-        // ==========================================
-        // THE FIX: Intercept the Exit Command
-        // ==========================================
+        // STATE 2: The Exit Command
         if (userInput.ToLower() == "exit" || userInput.ToLower() == "quit")
         {
-            AddMessageToScreen($"{_userName}@local", userInput, Colors.LightGreen);
-            
-            // Lock the terminal permanently
+            UIHelper.AddMessageToScreen(ChatContainer, ChatScrollView, $"{_userName}@local", userInput, Colors.LightGreen);
             UserInputEntry.IsEnabled = false;
             SendBtn.IsEnabled = false;
             
-            // Print the termination sequence
-            await TypeMessageAsync("System", $"CONNECTION TERMINATED. Stay secure out there, {_userName}.", Colors.DarkGray, 40);
-            
-            // Dramatic pause before actually closing the Mac application
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", $"CONNECTION TERMINATED. Stay secure out there, {_userName}.", Colors.DarkGray, 40);
             await Task.Delay(1500);
             Application.Current.Quit();
             return;
         }
 
-        // STATE 2: Normal Chat Mode
-        AddMessageToScreen($"{_userName}@local", userInput, Colors.LightGreen);
+        // STATE 3: Normal Chat Mode
+        UIHelper.AddMessageToScreen(ChatContainer, ChatScrollView, $"{_userName}@local", userInput, Colors.LightGreen);
         
-        // Disable input while bot "thinks"
         UserInputEntry.IsEnabled = false;
         SendBtn.IsEnabled = false;
         
-        await TypeMessageAsync("System", "Processing...", Colors.DarkGray, 10);
+        await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", "Processing...", Colors.DarkGray, 10);
         
-        // Get response from ChatBot brain
+        // Query the ChatBot Brain
         string botResponse = _bot.GenerateResponse(userInput, _userName);
         
-        // Display response
-        await TypeMessageAsync("Bot", botResponse, Colors.Cyan, 15);
-        AddDivider();
+        await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot", botResponse, Colors.Cyan, 15);
+        UIHelper.AddDivider(ChatContainer, ChatScrollView);
         
         UserInputEntry.IsEnabled = true;
         SendBtn.IsEnabled = true;
         UserInputEntry.Focus();
-    }
-
-    // ==========================================
-    // UI HELPER METHODS
-    // ==========================================
-    
-    private async Task TypeMessageAsync(string senderName, string message, Color textColor, int speedMs)
-    {
-        var messageLabel = new Label
-        {
-            Text = $"{senderName}: ",
-            TextColor = textColor,
-            FontSize = 14,
-            FontFamily = "Menlo",
-            Margin = new Thickness(0, 5)
-        };
-
-        ChatContainer.Children.Add(messageLabel);
-        
-        try { await ChatScrollView.ScrollToAsync(ChatContainer, ScrollToPosition.End, false); } catch {}
-
-        foreach (char c in message)
-        {
-            messageLabel.Text += c;
-            await Task.Delay(speedMs); 
-        }
-    }
-
-    private void AddMessageToScreen(string senderName, string message, Color textColor)
-    {
-        var messageLabel = new Label
-        {
-            Text = $"{senderName}: {message}",
-            TextColor = textColor,
-            FontSize = 14,
-            FontFamily = "Menlo",
-            Margin = new Thickness(0, 5)
-        };
-
-        ChatContainer.Children.Add(messageLabel);
-        try { ChatScrollView.ScrollToAsync(ChatContainer, ScrollToPosition.End, true); } catch {}
-    }
-
-    private void AddDivider()
-    {
-        var dividerLabel = new Label
-        {
-            Text = "---------------------------------------------------",
-            TextColor = Colors.DarkGray,
-            FontSize = 14,
-            FontFamily = "Menlo",
-            Margin = new Thickness(0, 5)
-        };
-        ChatContainer.Children.Add(dividerLabel);
-        try { ChatScrollView.ScrollToAsync(ChatContainer, ScrollToPosition.End, true); } catch {}
     }
 }
