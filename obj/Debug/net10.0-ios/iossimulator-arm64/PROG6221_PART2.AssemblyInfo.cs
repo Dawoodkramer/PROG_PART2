@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PROG6221_PART2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5171945c9c84412585a78072c24d015933c8b40")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a4ff806d2b65e8565e30ba9bc3e05565d61f9b2")]
 [assembly: System.Reflection.AssemblyProductAttribute("PROG6221_PART2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PROG6221_PART2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

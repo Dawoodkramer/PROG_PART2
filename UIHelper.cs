@@ -21,7 +21,7 @@ namespace PROG6221_PART2
             {
                 Text = $"{senderName}: ", // Sets the initial text of the label to the sender's name.
                 TextColor = textColor, // Changes the text color to whatever color was passed into the method.
-                FontSize = 14,
+                FontSize = 20,
                 FontFamily = "Menlo",
                 Margin = new Thickness(0, 5)
             };
@@ -42,7 +42,7 @@ namespace PROG6221_PART2
             {
                 Text = $"{senderName}: {message}",
                 TextColor = textColor,
-                FontSize = 14,
+                FontSize = 20,
                 FontFamily = "Menlo",
                 Margin = new Thickness(0, 5)
             };

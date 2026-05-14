@@ -106,7 +106,11 @@ public partial class MainPage : ContentPage // Declares the main graphical user 
 
             await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", "Processing...", Colors.DarkGray, 20);
             await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", $"Identity confirmed. Welcome to the secure terminal, {_userName}.", Colors.Cyan, 30);
-            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot", "How can I assist you today? (Topics: Passwords, Phishing, Safe Browsing)", Colors.Yellow, 30);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot", "How can I assist you with your cybersecurity needs today?", Colors.Yellow, 30);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot","You can ask questions about the following topics:", Colors.Yellow, 30);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot","1. Password safety", Colors.Yellow, 30);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot","2. Phishing", Colors.Yellow, 30);
+            await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "Bot","3. Safe browsing", Colors.Yellow, 30);
             await UIHelper.TypeMessageAsync(ChatContainer, ChatScrollView, "System", "[System: Type 'exit' or 'quit' at any time to close the terminal.]", Colors.DarkGray, 20);
             
             UIHelper.AddDivider(ChatContainer, ChatScrollView);

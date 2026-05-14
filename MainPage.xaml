@@ -9,7 +9,7 @@
         <Label Grid.Row="0" 
                x:Name="AsciiLogoLabel"
                TextColor="#3DD9B3" 
-               FontSize="35" 
+               FontSize="30" 
                FontFamily="Menlo" 
                FontAttributes="Bold" 
                HorizontalOptions="Center" 

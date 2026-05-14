@@ -11,9 +11,9 @@ using System.Collections.Generic;
 
 namespace PROG6221_PART2 
 { 
-    // ==========================================
-    // NEW CODE: DELEGATE DEFINITION (Rubric Requirement)
-    // ==========================================
+    // 
+    // DELEGATE DEFINITION 
+    // 
     // Declares a public delegate variable that holds a method used to dynamically modify the bot's tone based on the user's emotional state.
     public delegate string SentimentModifier(string botResponse);
 
@@ -64,9 +64,9 @@ namespace PROG6221_PART2
 
         public string GenerateResponse(string input, string userName) // Declares a method that processes the user's input and returns a dynamically generated string.
         { 
-            // ==========================================
-            // ERROR HANDLING (Rubric Requirement)
-            // ==========================================
+            // 
+            // ERROR HANDLING 
+            //
             try // Initiates a try-catch block to prevent the application from crashing on unexpected inputs.
             {
                 string lowerInput = input.ToLower(); // Converts the user's input to lowercase to make keyword matching easier.
@@ -123,9 +123,9 @@ namespace PROG6221_PART2
                     } 
                 }
 
-                // ==========================================
+                // 
                 // THE SENTIMENT ENGINE (Using Delegates)
-                // ==========================================
+                // 
                 if (isCoreTopic) // Only applies emotional modifiers if a core educational response was actually generated.
                 {
                     SentimentModifier modifier = ApplyNeutralTone; // Assigns the default neutral method to the delegate.
@@ -170,9 +170,9 @@ namespace PROG6221_PART2
             return responses[newIndex]; 
         } 
 
-        // ==========================================
+        // 
         // DELEGATE METHODS
-        // ==========================================
+        // 
         
         private string ApplyEmpatheticTone(string response) // Declares a method matching the delegate signature that adds an empathetic prefix to the response.
         {

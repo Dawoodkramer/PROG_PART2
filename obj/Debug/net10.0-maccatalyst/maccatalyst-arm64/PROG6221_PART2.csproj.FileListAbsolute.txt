@@ -306,8 +306,8 @@
 /Users/user1/Desktop/PROG6221_PART2/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/PROG6221_PART2.pdb
 /Users/user1/Desktop/PROG6221_PART2/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/PROG6221_PART2.genruntimeconfig.cache
 /Users/user1/Desktop/PROG6221_PART2/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/ref/PROG6221_PART2.dll
+/Users/user1/Desktop/PROG6221_PART2/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/PROG6221_PART2.sourcelink.json
 /Users/user1/Desktop/PROG6221_PART2/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/Microsoft.Maui.Controls.HotReload.Forms.dll
 /Users/user1/Desktop/PROG6221_PART2/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
 /Users/user1/Desktop/PROG6221_PART2/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/Microsoft.VisualStudio.DesignTools.TapContract.dll
 /Users/user1/Desktop/PROG6221_PART2/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
-/Users/user1/Desktop/PROG6221_PART2/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/PROG6221_PART2.sourcelink.json
